@@ -1,20 +1,24 @@
 
+"use Client"
 import Link from "next/link";
-const fetchTodos = async () =>{
-  const res = await fetch('https://jsonplaceholder.typicode.com/todos/1')
-  const data = await res.json()
-  return data 
+import {useState, useEffect} from 'react'; 
+
+
+const fetchMessage = async () =>{ 
+  const res = await fetch('/api/todos');
+  const message = await res.json();
+  setMessage(message); 
 }
 
-export default async function Home() {
-  const todos = await fetchTodos()
-  return (
+export default function CSR(){
+  const [message, setMessage] = useState([]);
+
+  return ( // Corrected the return statement by using parentheses instead of curly braces
     <main>
-      <Link href="/about/page.js">Navigate to about page</Link> 
-      <h1>hello Next 13</h1>
-      {todos.map((todo) => ( // Wrapped map function with curly braces
-        <p key={todo.id}>{todo.title}</p> // Moved key prop to the correct location
-      ))}
+      <Link href="/about/page.js">Navigate to about page</Link>
+      <h1 onClick={fetchMessage}>hello Next 13</h1>
+   
     </main>
   );
 }
+
