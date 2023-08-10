@@ -7,27 +7,34 @@ import { Session } from 'next-auth'
 
 const Nav = ({user}: Session) => {
     return(
-        <nav className="flex justify-between items-center py-8">
+        <nav className="flex justify-between items-center py-12">
             <h1>Styled</h1>
-            <ul>
-                <li> Products</li> 
+            <ul className="flex items-center gap-12 ">
                 {!user && (
-                     <li>
-                        <button onClick={() => signIn()}> Sign in </button>
-                    </li> 
+                   <div>
+                        <li className="bg-teal-600 text-white py-2 px-4 rounded-md">
+                            <button onClick={() => signIn()}> Sign in </button>
+                        </li> 
+                   </div>  
+
                 )}
                 { user && (
-                    <li>
+                   
+                    <div>
+                         <li>
                         <Image 
                             src={user?.image as string} 
                             alt={user.name as string} 
                             width={48} 
                             height={48} 
                             className="rounded-full"/>
+                       
+                        </li>
+
                         <li>
-                        <button onClick={() => signOut()}> Sign Out </button>
+                            <button onClick={() => signOut()}> Sign Out </button>
                         </li> 
-                    </li>
+                    </div>
                    
                     
                 )}
