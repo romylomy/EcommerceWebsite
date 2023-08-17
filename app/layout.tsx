@@ -18,8 +18,8 @@ export default async function RootLayout({
   console.log(session)
   return (
     <html lang="en">
-      <body className="mx-64">
-        <Nav user={session?.user} expires= {session?.expires as string}></Nav>
+      <body className='mx-64'>
+        <Nav user={session?.user} expires= {session?.expires as string}/>
         {children}
       </body>
     </html>

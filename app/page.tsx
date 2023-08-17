@@ -26,13 +26,14 @@ export default async function Home() {
   const Products = await fetchProduct()
   console.log(Products)
   return (
-    <main>
+    <main className ="grid grid-cols-fluid gap-16">
       {
         Products.map( product => (
          <Product 
          name = {product.name}
          price ={product.price}
          image = {product.image}
+         id = {product.id}
          />
         ))
       }
