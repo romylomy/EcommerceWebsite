@@ -9,12 +9,15 @@ const fetchProduct = async () =>{
   const objectPrices = await Promise.all(
     product.data.map( async (product) =>{
       const prices = await stripe.prices.list({product: product.id})
+      const features = product.metadata.features || ""
       return{
         id: product.id,
         image: product.images[0],
-        price: prices.data[0].unit_amount,
+        unit_amount: prices.data[0].unit_amount,
         name: product.name,
-        currency: prices.data[0].currency 
+        description: product.description,
+        currency: prices.data[0].currency,
+        metadata:{ features }, 
       }
     })
   )
@@ -23,20 +26,13 @@ const fetchProduct = async () =>{
 
 
 export default async function Home() {
-  const Products = await fetchProduct()
-  console.log(Products)
+  const products = await fetchProduct()
+  console.log(products)
   return (
     <main className ="grid grid-cols-fluid gap-16">
-      {
-        Products.map( product => (
-         <Product 
-         name = {product.name}
-         price ={product.price}
-         image = {product.image}
-         id = {product.id}
-         />
-        ))
-      }
+       {products.map((product) => (
+        <Product {...product} key={product.id} />
+      ))}
     </main>
   )
 }
