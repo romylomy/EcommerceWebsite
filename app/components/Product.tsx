@@ -1,10 +1,14 @@
+"use client"
 import { ProductType } from "@/Type/ProductType"
 import Image from "next/image"
 import formatPrice from "@/util/PriceFormat"
 import Link from "next/link" 
+import { useCartStore } from "@/store"
+import Cart from './Cart'
 
 export default function Product({image, name, unit_amount, id, description, metadata}: ProductType){
     const {features}= metadata
+    const cartStore = useCartStore()
     return (
         <Link href={{pathname:`/product/${id}`, query:{name, image, unit_amount, id, description}}}>
             <div className="text-gray-700">
@@ -19,7 +23,7 @@ export default function Product({image, name, unit_amount, id, description, meta
                     <h1 className="text-sm text-teal-700 "> { unit_amount !== null ? formatPrice(unit_amount) : 'N/A'}</h1>
                 </div> 
                 
-                
+                {cartStore.isOpen && <Cart/> }
            </div>
         
         </Link> 

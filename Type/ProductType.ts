@@ -5,6 +5,7 @@ export type ProductType = {
     image: string,
     quantity?: number | 1, 
     unit_amount: number | null,
+    curreny: number,
     metadata : MetadataType
 }
 
