@@ -16,7 +16,8 @@ const Nav = ({user}: Session) => {
             </Link>
             
             <ul className="flex items-center gap-12">
-               <li  className="flex items-center text-4xl relative cursor-pointer">
+               <li  onClick={ () => cartStore.toggleCart()}
+                    className="flex items-center text-4xl relative cursor-pointer">
                  <TbShoppingBag/>
                  <span className=" text-black text-sm font-bold w-3 h-4 rounded-full absolute left-3 bottom-1 flex items-center justify-center">
                     {cartStore.cart.length}    
