@@ -18,24 +18,23 @@ export const useCartStore = create<CartState>()(
         isOpen: false,
         toggleCart: () => set((state) => ({ isOpen: !state.isOpen })),
         addProduct: (item) =>
-        set((state) => {
-          const existingItem = state.cart.find(
-            (cartItem) => cartItem.id === item.id
-          )
-          if (existingItem) {
-            const updatedCart = state.cart.map((cartItem) => {
-              if (cartItem.id === item.id) {
-                return { ...cartItem, quantity: cartItem.quantity + 1 }
-              }
-              return cartItem
-            })
-            return { cart: updatedCart }
-          } else {
-            return { cart: [...state.cart, { ...item, quantity: 1 }] }
-          }
-          console.log(Cart)
+            set((state) => {
+                const existingItem = state.cart.find(
+                (cartItem) => cartItem.id === item.id
+                );
+                if (existingItem) {
+                const updatedCart = state.cart.map((cartItem) =>
+                    cartItem.id === item.id
+                    ? { ...cartItem, quantity: cartItem.quantity + 1 }
+                    : cartItem
+                );
+                return { ...state, cart: updatedCart }; // Spread the existing state and update the cart
+                } else {
+                return { ...state, cart: [...state.cart, { ...item, quantity: 1 }] }; // Spread the existing state and add to cart
+                }
+            }),
+
         }),
-    }),
-        {name:"cart-store"}
-    )
+            {name:"cart-store"}
+        )
  )
