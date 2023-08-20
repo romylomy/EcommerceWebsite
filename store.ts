@@ -1,4 +1,5 @@
 
+import { NumericLiteral } from "typescript"
 import {create} from "zustand"
 import { persist } from "zustand/middleware"
 import Cart from "./app/components/Cart"
@@ -9,6 +10,8 @@ type CartState = {
     cart: AddToCartType[]
     toggleCart: () => void
     addProduct: (item: AddToCartType) => void
+    updateCartLength: () => void;
+
   }
 
 export const useCartStore = create<CartState>()(
@@ -33,7 +36,10 @@ export const useCartStore = create<CartState>()(
                 return { ...state, cart: [...state.cart, { ...item, quantity: 1 }] }; // Spread the existing state and add to cart
                 }
             }),
-
+            updateCartLength: () =>
+            set((state) => ({
+              cart: state.cart,
+            })),
         }),
             {name:"cart-store"}
         )

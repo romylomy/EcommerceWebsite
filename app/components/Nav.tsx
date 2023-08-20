@@ -7,8 +7,10 @@ import Cart from './Cart'
 import Link from 'next/link'
 import {TbShoppingBag} from "react-icons/tb"
 
+
 const Nav = ({user}: Session) => {
     const cartStore = useCartStore()
+    
     return(
         <nav className="flex justify-between items-center py-12 ">
             <Link href={"/"} > 
@@ -19,8 +21,9 @@ const Nav = ({user}: Session) => {
                <li  onClick={ () => cartStore.toggleCart()}
                     className="flex items-center text-4xl relative cursor-pointer">
                  <TbShoppingBag/>
-                 <span className=" text-black text-sm font-bold w-3 h-4 rounded-full absolute left-3 bottom-1 flex items-center justify-center">
-                    {cartStore.cart.length}    
+                 <span data-bind="text: JSON.parse(window.localStorage.getItem('mage-cache-storage')).cart.summary_count">{}</span>
+                 <span className="drop-shadow-md text-black text-sm font-bold w-3 h-5 absolute left-3 bottom-1 flex items-center justify-center">
+                    {cartStore.cart.length}   
                 </span> 
 
                </li>
