@@ -1,5 +1,5 @@
 
-import { NumericLiteral } from "typescript"
+import { isTemplateExpression, NumericLiteral } from "typescript"
 import {create} from "zustand"
 import { persist } from "zustand/middleware"
 import Cart from "./app/components/Cart"
@@ -10,6 +10,7 @@ type CartState = {
     cart: AddToCartType[]
     toggleCart: () => void
     addProduct: (item: AddToCartType) => void
+    removeProduct: (item: AddToCartType ) => void 
     updateCartLength: () => void;
 
   }
@@ -40,6 +41,28 @@ export const useCartStore = create<CartState>()(
             set((state) => ({
               cart: state.cart,
             })),
+            removeProduct: (item) => set((state) => {
+                // Check if the item exists and remove quantity -1 
+                const existingItem = state.cart.find((cartItem) => cartItem.id === item.id);
+            
+                if (existingItem && existingItem.quantity > 1) {
+                    const updatedCart = state.cart.map((cartItem) => {
+                        if (cartItem.id === item.id) {
+                            return { ...cartItem, quantity: cartItem.quantity - 1 };
+                        }
+                        return cartItem;
+                    });
+            
+                    return { ...state, cart: updatedCart };
+                } else {
+                    // Remove item from cart
+                    const filteredCart = state.cart.filter((cartItem) => cartItem.id !== item.id);
+            
+                    return { ...state, cart: filteredCart };
+                }
+            
+                                   
+            }),
         }),
             {name:"cart-store"}
         )
