@@ -1,4 +1,5 @@
 "use client"
+
 import {signIn} from 'next-auth/react'
 import Image from 'next/image'
 import { Session } from 'next-auth'
@@ -6,7 +7,6 @@ import { useCartStore } from '@/store'
 import Cart from './Cart'
 import Link from 'next/link'
 import {TbShoppingBag} from "react-icons/tb"
-
 
 const Nav = ({user}: Session) => {
     const cartStore = useCartStore()
