@@ -14,6 +14,7 @@ export const authOptions: NextAuthOptions  = {
     }),
   ],
   adapter: PrismaAdapter(prisma),
+  secret: process.env.NEXTAUTH_SECRETS, 
   events:{
     createUser: async ({user}) =>{
       const stripe = new Stripe (process.env.STRIPE_SECRET_KEY as string, {
